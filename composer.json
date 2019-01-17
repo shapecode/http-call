@@ -1,0 +1,57 @@
+{
+    "name": "shapecode/http-call",
+    "description": "HTTP-Client caller",
+    "keywords": [
+        "http",
+        "client",
+        "call",
+        "shapecode"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "homepage": "https://github.com/shapecode/http-call",
+    "support": {
+        "email": "git@shapecode.de",
+        "issues": "https://github.com/shapecode/http-call/issues",
+        "source": "https://github.com/shapecode/http-call/releases",
+        "wiki": "https://github.com/shapecode/http-call/wiki"
+    },
+    "authors": [
+        {
+            "name": "Shapecode",
+            "homepage": "https://shapecode.de",
+            "email": "git@shapecode.de"
+        }
+    ],
+    "require": {
+        "php": "~7.1",
+        "ext-json": "*",
+
+        "guzzlehttp/guzzle": "^6.3",
+
+        "symfony/stopwatch": "^2.8|^3.0|^4.0",
+
+        "psr/http-message": "^1.0",
+        "psr/log": "^1.0",
+        "php-http/logger-plugin": "^2.0",
+        "php-http/stopwatch-plugin": "^2.0",
+        "php-http/discovery": "^1.4",
+        "php-http/client-common": "^2.0",
+        "php-http/message": "^1.7",
+        "php-http/httplug": "^2.0",
+        "php-http/message-factory": "^1.0",
+        "php-http/guzzle6-adapter": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shapecode\\HTTPCall\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
