@@ -49,6 +49,10 @@ class HttpClient
             unset($options['headers']);
         }
 
+        if (isset($options['user_agent']) && !isset($headers['User-Agent'])) {
+            $headers['User-Agent'] = $options['user_agent'];
+        }
+
         $request = $this->requestFactory->createRequest($method, $url, $headers);
 
         return new ClientCall($request, $options, $plugins);

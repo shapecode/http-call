@@ -13,6 +13,7 @@ use Http\Adapter\Guzzle6\Client as GuzzleAdapter;
 use Http\Client\Common\Plugin\ContentLengthPlugin;
 use Http\Client\Common\Plugin\LoggerPlugin;
 use Http\Client\Common\Plugin\RedirectPlugin;
+use Http\Client\Common\Plugin\RetryPlugin;
 use Http\Client\Common\PluginClient;
 use Http\Discovery\MessageFactoryDiscovery;
 use Http\Message\RequestFactory;
@@ -58,6 +59,9 @@ class ClientFactory
         }
 
         $plugins[] = new RedirectPlugin();
+        $plugins[] = new RetryPlugin([
+            'retries' => self::MAX_RETRIES
+        ]);
 
         return new PluginClient($client, $plugins);
     }
@@ -74,28 +78,6 @@ class ClientFactory
             $options['timeout'] = 5;
         }
 
-        $stack = HandlerStack::create(new CurlHandler());
-        $stack->push(Middleware::retry($this->createRetryHandler()));
-
-        $options['stack'] = $stack;
-
-        $guzzle = new Client($options);
-
-        return new GuzzleAdapter($guzzle);
-    }
-
-    /**
-     * @return \Closure
-     */
-    protected function createRetryHandler(): callable
-    {
-        return function (
-            $retries,
-            Psr7Request $request,
-            Psr7Response $response = null,
-            RequestException $exception = null
-        ) {
-            return ($retries < self::MAX_RETRIES);
-        };
+        return GuzzleAdapter::createWithConfig($options);
     }
 }
